@@ -1,0 +1,8 @@
+#Sample animation definition
+#Format: [animId, numFrames] { Frame 1 } { Frame 2 } { ... } { Frame N }
+#Each frame is: x, y, w, h, duration
+#Put each animation on a separate line
+
+#A single frame animation
+
+[0, 1] { 6, 7, 20, 24, 100 }
