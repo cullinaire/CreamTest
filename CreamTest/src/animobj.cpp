@@ -26,26 +26,29 @@ Animation::Animation(const std::string defFilename)
 
 		//skip blank lines
 		if(line.size() == 0)
+		{
 			validLine = false;
+		}
+		else
+		{
+			skipWhiteSpace(line, itr);
 
-		skipWhiteSpace(line, itr);
-
-		//Now see what that first non-whitespace char is
-		if(*itr == '#')
-			validLine = false;	//line begins with a comment character so go to next line
+			//Now see what that first non-whitespace char is
+			if(*itr == '#')
+				validLine = false;	//line begins with a comment character so go to next line
+		}
 
 		while(itr != line.end() && validLine)
 		{
 			//Begin reading animation
-			if(*itr == '[')	//denotes beginning of frame
+			if(*itr == '[')	//denotes beginning of sequence
 			{
+				readFrames = 0;
 				++itr;
+				currentSeq.frames.clear();
 				currentSeq.animId = getNumber(line, itr);
-				++itr;
-				currentSeq.numFrames = getNumber(line, itr);
 
-				std::cout << "Read sequence " << currentSeq.animId << " which has "
-					<< currentSeq.numFrames << " frames." << std::endl;
+				std::cout << "Reading sequence " << currentSeq.animId << "." << std::endl;
 			}
 			else if(*itr == '{')	//reading frames
 			{
@@ -57,19 +60,20 @@ Animation::Animation(const std::string defFilename)
 				currentFrame.cutout.w = getNumber(line, itr);
 				++itr;
 				currentFrame.cutout.h = getNumber(line, itr);
+				++itr;
+				currentFrame.duration = getNumber(line, itr);
 
 				currentSeq.frames.push_back(currentFrame);
 
 				++readFrames;
-				if(readFrames == currentSeq.numFrames)	//Sequence fully read, commit
-				{
-					seqs.push_back(currentSeq);
-					std::cout << "Commit sequence to seqs vector" << std::endl;
-				}
 
 				std::cout << "Read frame " << readFrames << std::endl;
-
-				break;	//Nothing more to read on this line
+			}
+			else if(*itr == '!')	//Termination of sequence
+			{
+				currentSeq.numFrames = readFrames;
+				seqs.push_back(currentSeq);
+				std::cout << "Commit sequence to seqs vector" << std::endl;
 			}
 			++itr;
 		}

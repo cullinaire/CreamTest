@@ -1,8 +1,25 @@
 #Sample animation definition
-#Format: [animId, numFrames] { Frame 1 } { Frame 2 } { ... } { Frame N }
-#Each frame is: x, y, w, h, duration
-#Put each animation on a separate line
+#Format:
+#[animId]
+#{ Frame 1 }
+#{ Frame 2 }
+#{ ... }
+#{ Frame N }!
+#Each frame is: { x, y, w, h, duration }
+#Put each animation (and frame) on a separate line
+#Terminate each sequence with !
 
-#A single frame animation
+#A three frame animation
 
-[0, 1] { 6, 7, 20, 24, 100 }
+[0]
+{ 6, 7, 20, 24, 100 }
+{ 6, 7, 20, 24, 102 }
+{ 6, 7, 20, 24, 104 }!
+
+#A two frame animation
+
+[1]
+{ 6, 7, 20, 24, 69 }
+{ 6, 7, 20, 24, 104 }!
+
+#End of animations
