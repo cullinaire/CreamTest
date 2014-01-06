@@ -5,10 +5,12 @@
 #ifndef ANIMOBJ_H_
 #define ANIMOBJ_H_
 
-#include "globals.h"
-#include "spritesheet.h"
 #include <vector>
 #include <fstream>
+
+#include "globals.h"
+#include "spritesheet.h"
+#include "parse.h"
 
 //This struct defines one animation frame
 struct Frame
@@ -29,9 +31,9 @@ struct AnimSequence
 class Animation
 {
 public:
-	Animation();
+	Animation() {}
 	Animation(const std::string defFile);
-	~Animation();
+	~Animation() {}
 private:
 	std::vector<AnimSequence> seqs;
 };
@@ -39,8 +41,8 @@ private:
 class Animobj
 {
 public:
-	Animobj();
-	~Animobj();
+	Animobj() {}
+	~Animobj() {}
 	//Set animation speed factor (0 = stopped, 1 = default, etc.)
 	//Place animation at specified location
 private:

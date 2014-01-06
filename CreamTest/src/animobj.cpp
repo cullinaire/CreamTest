@@ -1,9 +1,4 @@
 #include "animobj.h"
-#include "parse.h"
-
-Animation::Animation()
-{
-}
 
 Animation::Animation(const std::string defFilename)
 {
@@ -81,8 +76,4 @@ Animation::Animation(const std::string defFilename)
 		validLine = true;
 	}
 	defFile.close();
-}
-
-Animation::~Animation()
-{
 }
