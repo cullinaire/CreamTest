@@ -95,6 +95,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\parse.cpp" />
     <ClCompile Include="src\spritesheet.cpp" />
+    <ClCompile Include="src\timekeep.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\animobj.h" />
@@ -103,6 +104,7 @@
     <ClInclude Include="includes\parse.h" />
     <ClInclude Include="includes\session.h" />
     <ClInclude Include="includes\spritesheet.h" />
+    <ClInclude Include="includes\timekeep.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
