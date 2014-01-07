@@ -5,12 +5,18 @@
 #ifndef SESSION_H_
 #define SESSION_H_
 
+#include <vector>
+
+#include "animobj.h"
+#include "spritesheet.h"
+
 class Session
 {
 public:
-	Session();
+	Session(SDL_Renderer *&renderer);
 	~Session();
-	//Load animobjs
+	void LoadSpriteSheets();
+	void LoadAnimObjs();
 	//Add entity
 	//Remove entity
 	//Associate input scheme to entity
@@ -19,10 +25,12 @@ public:
 	//Collide entities
 	//Resolve collisions
 	//Update positions
-	//Compose screen
+	void ComposeScreen();
 private:
+	std::vector<Spritesheet*> sheets;
+	SDL_Renderer *rend; //deinitialized separately - do not touch in destructor!
 	//Array of entities
-	//Array of animobjs
+	std::vector<Animobj*> animobjs;
 	//Array of inputschema
 	//Collider
 };

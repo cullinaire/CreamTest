@@ -92,8 +92,10 @@
   <ItemGroup>
     <ClCompile Include="src\animobj.cpp" />
     <ClCompile Include="src\init.cpp" />
+    <ClCompile Include="src\inputscheme.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\parse.cpp" />
+    <ClCompile Include="src\session.cpp" />
     <ClCompile Include="src\spritesheet.cpp" />
     <ClCompile Include="src\timekeep.cpp" />
   </ItemGroup>
@@ -101,6 +103,7 @@
     <ClInclude Include="includes\animobj.h" />
     <ClInclude Include="includes\globals.h" />
     <ClInclude Include="includes\init.h" />
+    <ClInclude Include="includes\inputscheme.h" />
     <ClInclude Include="includes\parse.h" />
     <ClInclude Include="includes\session.h" />
     <ClInclude Include="includes\spritesheet.h" />

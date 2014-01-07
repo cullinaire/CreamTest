@@ -169,13 +169,16 @@ void Animobj::Stop()
 	anims.Stop();
 }
 
-void Animobj::Update(const float x, const float y, const double dt)
+void Animobj::Update(const double dt)
 {
-	SDL_Rect src = anims.Update(dt);
-	SDL_Rect dst = src;	//set dst's width and height to that of src
+	src = anims.Update(dt);
+}
+
+void Animobj::Draw(const float x, const float y)
+{
+	dst = src;	//set dst's width and height to that of src
 
 	dst.x = round(x);
 	dst.y = round(y);
-
 	animSheet->Draw(src, dst);
 }

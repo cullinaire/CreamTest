@@ -55,13 +55,16 @@ public:
 	Animobj(const std::string defFile, Spritesheet *spritesheet);
 	void Play(const int idToPlay, const bool looping, const bool backNforth);
 	void Stop();
-	void Update(const float x, const float y, const double dt);
+	void Update(const double dt);
+	void Draw(const float x, const float y);
 	~Animobj() {}
 	//Set animation speed factor (0 = stopped, 1 = default, etc.)
 	//Place animation at specified location
 private:
 	Spritesheet		*animSheet;
 	Animation		anims;
+	SDL_Rect		src;
+	SDL_Rect		dst;
 };
 
 #endif

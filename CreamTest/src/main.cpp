@@ -5,6 +5,7 @@
 //Temp for testing - these includes may become redundant once wrapper classes are done
 #include "spritesheet.h"
 #include "animobj.h"
+#include "timekeep.h"
 
 int main(int argc, char **argv)
 {
@@ -17,28 +18,49 @@ int main(int argc, char **argv)
 	/********TEST HARNESS********/
 	SDL_Event ev;
 	bool quit = false;
+	double frameTime;
+	double accumulator = 0;
+	double t = 0;
+	double alpha = 0;
 
-	Spritesheet sample("../assets/sample.bmp", rend);
-	Animobj testAnim("../assets/sample.def", &sample);
-	SDL_Rect src, dst;
-	src.w = 20;
-	src.h = 24;
-	src.x = 6;
-	src.y = 7;
+	Timer testTimer;
 
-	dst.w = 20;
-	dst.h = 24;
-	dst.x = 128;
-	dst.y = 128;
-	
+	testTimer.Init();
+
 	while(!quit)
 	{
 		while(SDL_PollEvent(&ev))
 		{
 			if(ev.type == SDL_QUIT)
 				quit = true;
+			if(ev.type == SDL_KEYDOWN)
+			{
+				switch(ev.key.keysym.scancode)
+				{
+				case SDL_SCANCODE_ESCAPE:
+					quit = true;
+					break;
+				case SDL_SCANCODE_0:
+					break;
+				case SDL_SCANCODE_1:
+					break;
+				}
+			}
 		}
 		
+		frameTime = testTimer.Update();
+		accumulator += frameTime;
+
+		while(accumulator >= FIXEDTIMESTEP)
+		{
+			accumulator -= FIXEDTIMESTEP;
+			//Do fixed timestep stuff
+
+			t += FIXEDTIMESTEP;
+		}
+
+		alpha = accumulator/FIXEDTIMESTEP;
+
 		SDL_RenderClear(rend);
 		//Draw something now
 
