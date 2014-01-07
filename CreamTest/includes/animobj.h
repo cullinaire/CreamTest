@@ -33,15 +33,29 @@ class Animation
 public:
 	Animation() {}
 	Animation(const std::string defFile);
+	void Play(const int idToPlay, const bool looping, const bool backNforth);
+	void Stop();
+	SDL_Rect Update(const double dt);
 	~Animation() {}
 private:
 	std::vector<AnimSequence> seqs;
+	int currentPlayingId;
+	int currentFrameId;
+	bool isPlaying;
+	bool loopAnim;
+	bool bNfAnim;
+	bool reverse;
+	double elapsed;
 };
 
 class Animobj
 {
 public:
 	Animobj() {}
+	Animobj(const std::string defFile, Spritesheet *spritesheet);
+	void Play(const int idToPlay, const bool looping, const bool backNforth);
+	void Stop();
+	void Update(const float x, const float y, const double dt);
 	~Animobj() {}
 	//Set animation speed factor (0 = stopped, 1 = default, etc.)
 	//Place animation at specified location

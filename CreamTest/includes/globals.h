@@ -14,7 +14,7 @@
 /********INCLUDES**********/
 
 /*********DEFINES**********/
-
+#define round(x) ((x) >= 0 ? (long)((x)+0.5) : (long)((x)-0.5))	//round float to nearest int
 /*********DEFINES**********/
 
 #endif

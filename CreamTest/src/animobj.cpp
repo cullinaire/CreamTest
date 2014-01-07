@@ -9,6 +9,14 @@ Animation::Animation(const std::string defFilename)
 	AnimSequence			currentSeq;
 	int						readFrames = 0;
 
+	currentPlayingId = 0;
+	currentFrameId = 0;
+	isPlaying = false;
+	loopAnim = false;
+	bNfAnim = false;
+	reverse = false;
+	elapsed = 0;
+
 	currentSeq.frames.clear();
 	seqs.clear();
 
@@ -80,4 +88,94 @@ Animation::Animation(const std::string defFilename)
 		validLine = true;
 	}
 	defFile.close();
+}
+
+void Animation::Play(const int idToPlay, const bool looping, const bool backNforth)
+{
+	elapsed = 0;
+	currentPlayingId = idToPlay;
+	currentFrameId = 0;
+	loopAnim = looping;
+	bNfAnim = backNforth;
+	isPlaying = true;
+}
+
+void Animation::Stop()
+{
+	isPlaying = false;
+}
+
+SDL_Rect Animation::Update(const double dt)
+{
+	if(isPlaying)
+	{
+		//If time elapsed exceeds current frame's duration, update to new current frame
+		if(seqs[currentPlayingId].frames[currentFrameId].duration > elapsed)
+		{
+			elapsed = 0;
+			if(reverse && currentFrameId > 0)
+			{
+				--currentFrameId;
+			}
+			else if(reverse && currentFrameId == 0)
+			{
+				reverse = false;
+				++currentFrameId;
+			}
+			else
+			{
+				++currentFrameId;
+			}
+
+			//If end of sequence is reached
+			if(currentFrameId == seqs[currentPlayingId].numFrames)
+			{
+				//Three possibilities here: stop, loop, or reverse (backNforth)
+				if(loopAnim)
+				{
+					currentFrameId = 0;	//go back to the beginning
+				}
+				else if(bNfAnim)
+				{
+					reverse = true;
+				}
+				else
+				{
+					isPlaying = false;
+				}
+			}
+		}
+		else
+		{
+			elapsed += dt;
+		}
+	}
+	return seqs[currentPlayingId].frames[currentFrameId].cutout;
+}
+
+Animobj::Animobj(const std::string defFile, Spritesheet *spritesheet)
+{
+	animSheet = spritesheet;
+	anims = Animation(defFile);
+}
+
+void Animobj::Play(const int idToPlay, const bool looping, const bool backNforth)
+{
+	anims.Play(idToPlay, looping, backNforth);
+}
+
+void Animobj::Stop()
+{
+	anims.Stop();
+}
+
+void Animobj::Update(const float x, const float y, const double dt)
+{
+	SDL_Rect src = anims.Update(dt);
+	SDL_Rect dst = src;	//set dst's width and height to that of src
+
+	dst.x = round(x);
+	dst.y = round(y);
+
+	animSheet->Draw(src, dst);
 }

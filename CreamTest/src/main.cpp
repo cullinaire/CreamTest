@@ -18,8 +18,8 @@ int main(int argc, char **argv)
 	SDL_Event ev;
 	bool quit = false;
 
-	Animation testAnim("../assets/sample.def");
 	Spritesheet sample("../assets/sample.bmp", rend);
+	Animobj testAnim("../assets/sample.def", &sample);
 	SDL_Rect src, dst;
 	src.w = 20;
 	src.h = 24;
@@ -38,9 +38,10 @@ int main(int argc, char **argv)
 			if(ev.type == SDL_QUIT)
 				quit = true;
 		}
-		SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
+		
 		SDL_RenderClear(rend);
-		sample.Draw(src, dst);
+		//Draw something now
+
 		SDL_RenderPresent(rend);
 	}
 	/********TEST HARNESS********/
