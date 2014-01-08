@@ -18,6 +18,8 @@
 #define FIXEDTIMESTEP	0.01f
 #define MAXFRAMETIME	0.25f
 #define DEFAULTSCANCODE	SDL_SCANCODE_NONUSHASH
+#define MAXVEL			20.0f
+#define FRICTION		0.9f
 /*********DEFINES**********/
 
 #endif

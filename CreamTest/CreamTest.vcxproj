@@ -91,6 +91,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\animobj.cpp" />
+    <ClCompile Include="src\entity.cpp" />
     <ClCompile Include="src\init.cpp" />
     <ClCompile Include="src\inputscheme.cpp" />
     <ClCompile Include="src\main.cpp" />

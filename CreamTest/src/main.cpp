@@ -7,6 +7,7 @@
 #include "animobj.h"
 #include "timekeep.h"
 #include "inputscheme.h"
+#include "entity.h"
 
 int main(int argc, char **argv)
 {
@@ -38,6 +39,10 @@ int main(int argc, char **argv)
 	testInput.AddInput(SDL_SCANCODE_4, MOVERIGHT);
 	std::cout << testInput.getCommandName(testInput.getCommand(SDL_SCANCODE_4)) << std::endl;
 
+	Spritesheet testSheet = Spritesheet("../assets/sample.bmp", rend);
+	Animobj testAnim = Animobj("../assets/sample.def", &testSheet);
+	Entity testEntity = Entity(&testAnim);
+
 	while(!quit)
 	{
 		while(SDL_PollEvent(&ev))
@@ -66,7 +71,7 @@ int main(int argc, char **argv)
 		{
 			accumulator -= FIXEDTIMESTEP;
 			//Do fixed timestep stuff
-
+			testEntity.Update(FIXEDTIMESTEP);
 			t += FIXEDTIMESTEP;
 		}
 
@@ -74,7 +79,7 @@ int main(int argc, char **argv)
 
 		SDL_RenderClear(rend);
 		//Draw something now
-
+		testEntity.Draw(alpha);
 		SDL_RenderPresent(rend);
 	}
 	/********TEST HARNESS********/
