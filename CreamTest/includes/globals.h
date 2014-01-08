@@ -17,6 +17,7 @@
 #define round(x) ((x) >= 0 ? (long)((x)+0.5) : (long)((x)-0.5))	//round float to nearest int
 #define FIXEDTIMESTEP	0.01f
 #define MAXFRAMETIME	0.25f
+#define DEFAULTSCANCODE	SDL_SCANCODE_NONUSHASH
 /*********DEFINES**********/
 
 #endif

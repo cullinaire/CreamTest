@@ -6,6 +6,7 @@
 #include "spritesheet.h"
 #include "animobj.h"
 #include "timekeep.h"
+#include "inputscheme.h"
 
 int main(int argc, char **argv)
 {
@@ -26,6 +27,16 @@ int main(int argc, char **argv)
 	Timer testTimer;
 
 	testTimer.Init();
+
+	InputScheme testInput;
+
+	testInput.AddInput(SDL_SCANCODE_0, MOVEUP);
+	testInput.AddInput(SDL_SCANCODE_2, MOVEDOWN);
+	testInput.DeleteInput(MOVEUP);
+	testInput.DeleteKey(SDL_SCANCODE_2);
+	std::cout << testInput.getCommandName(testInput.getCommand(SDL_SCANCODE_4)) << std::endl;
+	testInput.AddInput(SDL_SCANCODE_4, MOVERIGHT);
+	std::cout << testInput.getCommandName(testInput.getCommand(SDL_SCANCODE_4)) << std::endl;
 
 	while(!quit)
 	{
