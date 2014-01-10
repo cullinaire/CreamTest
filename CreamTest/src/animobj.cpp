@@ -180,5 +180,6 @@ void Animobj::Draw(const float x, const float y)
 
 	dst.x = round(x);
 	dst.y = round(y);
+
 	animSheet->Draw(src, dst);
 }
