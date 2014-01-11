@@ -5,34 +5,57 @@ Entity::Entity(Animobj *p_animobj)
 	visible = true;
 	collidable = true;
 	animObj = p_animobj;
-
+	
 	//temp values for testing
-	pos[0] = 64.0f;
-	pos[1] = 64.0f;
-	vel[0] = 0;
-	vel[1] = 0;
-	acc[0] = 0;
-	acc[1] = 0;
+	mass = 0.2f;
+	motiveForce.zero();
+	currState.pos.set(64.0f, 64.0f);
+	currState.vel.zero();
+	currState.acc.zero();
+
+	prevState = currState;
+
 	animObj->Play(0, true, false);
 }
 
 void Entity::Update(double dt)
 {
-	pos += vel * dt + acc * dt * dt;
+	prevState = currState;
 
-	vel += acc * dt;
+	cml::vector2f lastAcc = currState.acc;
 
-	if(vel[0] >= MAXVEL)
-		vel[0] = MAXVEL;
-	if(vel[1] >= MAXVEL)
-		vel[1] = MAXVEL;
+	currState.pos += currState.vel * dt + (0.5f * lastAcc * dt * dt);
 
-	vel *= FRICTION;
+	cml::vector2f newAcc = motiveForce / mass;
+
+	cml::vector2f avgAcc = (lastAcc + newAcc) / 2;
+
+	currState.acc = newAcc;
+
+	currState.vel += avgAcc * dt;
+
+	currState.vel *= FRICTION;
+
+	//if(currState.vel.length() > STATICTHRESH)
+	//	currState.vel.zero();	//Hopefully eliminates the "jitters"
 
 	animObj->Update(dt);
 }
 
 void Entity::Draw(double alpha)
 {
-	animObj->Draw(pos[0]*alpha, pos[1]*alpha);
+	float rendx = currState.pos[0]*alpha + prevState.pos[0]*(1.0f - alpha);
+	float rendy = currState.pos[1]*alpha + prevState.pos[1]*(1.0f - alpha);
+	
+	animObj->Draw(rendx, rendy);
+}
+
+void Entity::apply_force()
+{
+	motiveForce[0] = 50.0f;
+}
+
+void Entity::remove_force()
+{
+	motiveForce[0] = 0.0f;
 }

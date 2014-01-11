@@ -29,21 +29,8 @@ int main(int argc, char **argv)
 	testTimer.Init();
 
 	Spritesheet *testSheet = new Spritesheet("../assets/sample.bmp", rend);
-	//Animobj testAnim = Animobj("../assets/sample.def", &testSheet);
-	//Entity testEntity = Entity(&testAnim);
-
-	SDL_Rect src;
-	SDL_Rect dst;
-
-	src.x = 0;
-	src.y = 0;
-	src.w = 5;
-	src.h = 6;
-	dst = src;
-	dst.x = 64;
-	dst.y = 64;
-
-	//testAnim.Play(0, true, false);
+	Animobj *testAnim = new Animobj("../assets/sample.def", testSheet);
+	Entity *testEntity = new Entity(testAnim);
 
 	while(!quit)
 	{
@@ -58,9 +45,17 @@ int main(int argc, char **argv)
 				case SDL_SCANCODE_ESCAPE:
 					quit = true;
 					break;
-				case SDL_SCANCODE_0:
+				case SDL_SCANCODE_RIGHT:
+					testEntity->apply_force();
 					break;
-				case SDL_SCANCODE_1:
+				}
+			}
+			else if(ev.type == SDL_KEYUP)
+			{
+				switch(ev.key.keysym.scancode)
+				{
+				case SDL_SCANCODE_RIGHT:
+					testEntity->remove_force();
 					break;
 				}
 			}
@@ -73,8 +68,7 @@ int main(int argc, char **argv)
 		{
 			accumulator -= FIXEDTIMESTEP;
 			//Do fixed timestep stuff
-			//testEntity.Update(FIXEDTIMESTEP);
-			//testAnim.Update(FIXEDTIMESTEP);
+			testEntity->Update(FIXEDTIMESTEP);
 
 			t += FIXEDTIMESTEP;
 		}
@@ -83,13 +77,14 @@ int main(int argc, char **argv)
 
 		SDL_RenderClear(rend);
 		//Draw something now
-		//testEntity.Draw(alpha);
-		//testAnim.Draw(54, 54);
-		testSheet->Draw(src, dst);
+		testEntity->Draw(alpha);
+		
 		SDL_RenderPresent(rend);
 	}
 
 	delete testSheet;
+	delete testAnim;
+	delete testEntity;
 	/********TEST HARNESS********/
 
 	CreamCleanUp(window, rend);
