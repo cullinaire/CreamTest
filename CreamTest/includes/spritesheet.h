@@ -8,7 +8,7 @@
 class Spritesheet
 {
 public:
-        Spritesheet(const std::string bmpfilename, SDL_Renderer *&renderer);
+        Spritesheet(const std::string bmpfilename, SDL_Renderer *renderer);
         void Draw(const SDL_Rect src, const SDL_Rect dst);
         ~Spritesheet();
 private:

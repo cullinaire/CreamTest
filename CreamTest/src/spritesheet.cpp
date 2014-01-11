@@ -1,6 +1,6 @@
 #include "spritesheet.h"
 
-Spritesheet::Spritesheet(const std::string bmpfilename, SDL_Renderer *&renderer)
+Spritesheet::Spritesheet(const std::string bmpfilename, SDL_Renderer *renderer)
 {
     rend = renderer;
     texture = NULL;
