@@ -24,35 +24,35 @@ void Player::ExecuteCommand(const GameCommand command)
 	switch(command)
 	{
 	case MOVERIGHT:
-		this->motiveForce[0] = 1;
+		motiveForce[0] = DEFMOTIVEFORCE;
 		lastCommand = command;
 		break;
 	case STOPMOVERIGHT:
-		this->motiveForce[0] = 0;
+		motiveForce[0] = 0;
 		lastCommand = command;
 		break;
 	case MOVELEFT:
-		this->motiveForce[0] = -1;
+		motiveForce[0] = -DEFMOTIVEFORCE;
 		lastCommand = command;
 		break;
 	case STOPMOVELEFT:
-		this->motiveForce[0] = 0;
+		motiveForce[0] = 0;
 		lastCommand = command;
 		break;
 	case MOVEUP:
-		this->motiveForce[1] = -1;
+		motiveForce[1] = -DEFMOTIVEFORCE;
 		lastCommand = command;
 		break;
 	case STOPMOVEUP:
-		this->motiveForce[1] = 0;
+		motiveForce[1] = 0;
 		lastCommand = command;
 		break;
 	case MOVEDOWN:
-		this->motiveForce[1] = 1;
+		motiveForce[1] = DEFMOTIVEFORCE;
 		lastCommand = command;
 		break;
 	case STOPMOVEDOWN:
-		this->motiveForce[1] = 0;
+		motiveForce[1] = 0;
 		lastCommand = command;
 		break;
 	default:

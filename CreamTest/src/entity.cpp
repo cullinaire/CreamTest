@@ -5,6 +5,10 @@ void Entity::Update(double dt)
 	if(motiveForce[0] != 0 || motiveForce[1] != 0)
 		motiveForce.normalize();
 
+	//debug catcher
+	if(motiveForce[0] != 0 && motiveForce[1] != 0)
+		int i = 334;
+
 	motiveForce *= DEFMOTIVEFORCE;
 
 	prevState = currState;
