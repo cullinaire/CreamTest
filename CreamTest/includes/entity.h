@@ -15,7 +15,6 @@ struct EntityState
 class Entity
 {
 public:
-	Entity(Animobj *p_animobj);
 	Entity() {}
 	~Entity() {}
 	virtual void Update(double dt);

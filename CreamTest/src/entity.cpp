@@ -1,25 +1,12 @@
 #include "entity.h"
 
-Entity::Entity(Animobj *p_animobj)
-{
-	visible = true;
-	collidable = true;
-	animObj = p_animobj;
-	
-	//temp values for testing
-	mass = 0.2f;
-	motiveForce.zero();
-	currState.pos.set(64.0f, 64.0f);
-	currState.vel.zero();
-	currState.acc.zero();
-
-	prevState = currState;
-
-	animObj->Play(0, true, false);
-}
-
 void Entity::Update(double dt)
 {
+	if(motiveForce[0] != 0 || motiveForce[1] != 0)
+		motiveForce.normalize();
+
+	motiveForce *= DEFMOTIVEFORCE;
+
 	prevState = currState;
 
 	cml::vector2f lastAcc = currState.acc;

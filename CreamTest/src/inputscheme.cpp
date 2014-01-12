@@ -3,8 +3,16 @@
 InputScheme::InputScheme()
 {
 	schemeInputs.clear();
+
+	//testing values
 	this->AddInput(SDL_SCANCODE_RIGHT, true, MOVERIGHT);
 	this->AddInput(SDL_SCANCODE_RIGHT, false, STOPMOVERIGHT);
+	this->AddInput(SDL_SCANCODE_LEFT, true, MOVELEFT);
+	this->AddInput(SDL_SCANCODE_LEFT, false, STOPMOVELEFT);
+	this->AddInput(SDL_SCANCODE_UP, true, MOVEUP);
+	this->AddInput(SDL_SCANCODE_UP, false, STOPMOVEUP);
+	this->AddInput(SDL_SCANCODE_DOWN, true, MOVEDOWN);
+	this->AddInput(SDL_SCANCODE_DOWN, false, STOPMOVEDOWN);
 }
 
 void InputScheme::AddInput(const SDL_Scancode desiredKey, const bool keyDown, const GameCommand desiredCommand)
