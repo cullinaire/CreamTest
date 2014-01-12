@@ -96,6 +96,7 @@
     <ClCompile Include="src\inputscheme.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\parse.cpp" />
+    <ClCompile Include="src\player.cpp" />
     <ClCompile Include="src\session.cpp" />
     <ClCompile Include="src\spritesheet.cpp" />
     <ClCompile Include="src\timekeep.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="includes\init.h" />
     <ClInclude Include="includes\inputscheme.h" />
     <ClInclude Include="includes\parse.h" />
+    <ClInclude Include="includes\player.h" />
     <ClInclude Include="includes\session.h" />
     <ClInclude Include="includes\spritesheet.h" />
     <ClInclude Include="includes\timekeep.h" />

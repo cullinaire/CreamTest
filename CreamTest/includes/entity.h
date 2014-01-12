@@ -16,14 +16,11 @@ class Entity
 {
 public:
 	Entity(Animobj *p_animobj);
+	Entity() {}
 	~Entity() {}
 	virtual void Update(double dt);
 	virtual void Draw(double alpha);
-
-	//Test
-	void apply_force();
-	void remove_force();
-private:
+protected:
 	EntityState currState;
 	EntityState prevState;
 	cml::vector2f motiveForce;

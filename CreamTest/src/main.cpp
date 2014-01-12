@@ -6,7 +6,8 @@
 #include "spritesheet.h"
 #include "animobj.h"
 #include "timekeep.h"
-#include "entity.h"
+#include "player.h"
+#include "inputscheme.h"
 
 int main(int argc, char **argv)
 {
@@ -30,7 +31,10 @@ int main(int argc, char **argv)
 
 	Spritesheet *testSheet = new Spritesheet("../assets/sample.bmp", rend);
 	Animobj *testAnim = new Animobj("../assets/sample.def", testSheet);
-	Entity *testEntity = new Entity(testAnim);
+	Player *testEntity = new Player(testAnim);
+	InputScheme *playerInput = new InputScheme();
+
+	GameCommand lastInput = UNDEFINED;
 
 	while(!quit)
 	{
@@ -40,24 +44,11 @@ int main(int argc, char **argv)
 				quit = true;
 			if(ev.type == SDL_KEYDOWN)
 			{
-				switch(ev.key.keysym.scancode)
-				{
-				case SDL_SCANCODE_ESCAPE:
-					quit = true;
-					break;
-				case SDL_SCANCODE_RIGHT:
-					testEntity->apply_force();
-					break;
-				}
+				lastInput = playerInput->getCommand(ev.key.keysym.scancode, true);
 			}
 			else if(ev.type == SDL_KEYUP)
 			{
-				switch(ev.key.keysym.scancode)
-				{
-				case SDL_SCANCODE_RIGHT:
-					testEntity->remove_force();
-					break;
-				}
+				lastInput = playerInput->getCommand(ev.key.keysym.scancode, false);
 			}
 		}
 		
@@ -67,7 +58,9 @@ int main(int argc, char **argv)
 		while(accumulator >= FIXEDTIMESTEP)
 		{
 			accumulator -= FIXEDTIMESTEP;
+
 			//Do fixed timestep stuff
+			testEntity->ExecuteCommand(lastInput);
 			testEntity->Update(FIXEDTIMESTEP);
 
 			t += FIXEDTIMESTEP;
@@ -85,6 +78,7 @@ int main(int argc, char **argv)
 	delete testSheet;
 	delete testAnim;
 	delete testEntity;
+	delete playerInput;
 	/********TEST HARNESS********/
 
 	CreamCleanUp(window, rend);

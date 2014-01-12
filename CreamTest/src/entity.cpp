@@ -49,13 +49,3 @@ void Entity::Draw(double alpha)
 	
 	animObj->Draw(rendx, rendy);
 }
-
-void Entity::apply_force()
-{
-	motiveForce[0] = 50.0f;
-}
-
-void Entity::remove_force()
-{
-	motiveForce[0] = 0.0f;
-}

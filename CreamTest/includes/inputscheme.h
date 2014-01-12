@@ -11,14 +11,19 @@ enum GameCommand
 {
 	UNDEFINED,
 	MOVELEFT,
+	STOPMOVELEFT,
 	MOVERIGHT,
+	STOPMOVERIGHT,
 	MOVEUP,
-	MOVEDOWN
+	STOPMOVEUP,
+	MOVEDOWN,
+	STOPMOVEDOWN
 };
 
 struct SingleInput
 {
 	SDL_Scancode key;
+	bool isKeyDown;
 	GameCommand command;
 };
 
@@ -27,12 +32,12 @@ class InputScheme
 public:
 	InputScheme();
 	~InputScheme() {}
-	void AddInput(const SDL_Scancode desiredKey, const GameCommand desiredCommand);
+	void AddInput(const SDL_Scancode desiredKey, const bool keyDown, const GameCommand desiredCommand);
 	bool DeleteInput(const GameCommand commandToDelete);
 	bool DeleteKey(const SDL_Scancode keyToDelete);
-	bool KeyAssigned(const SDL_Scancode searchKey);
-	GameCommand getCommand(const SDL_Scancode keyPressed);
-	SDL_Scancode getKey(const SDL_Scancode command);
+	bool KeyAssigned(const SDL_Scancode searchKey, const bool keyDown);
+	GameCommand getCommand(const SDL_Scancode keyPressed, const bool p_isKeyDown);
+	SDL_Scancode getKey(const GameCommand command);
 	std::string getCommandName(const GameCommand command);
 	void PrintCurrentState();	//Debug only
 private:

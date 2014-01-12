@@ -42,6 +42,9 @@
     <ClCompile Include="src\entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\globals.h">
@@ -59,9 +62,6 @@
     <ClInclude Include="includes\spritesheet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\parse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\timekeep.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,6 +69,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\parse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
