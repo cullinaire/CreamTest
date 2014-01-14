@@ -10,6 +10,7 @@ Player::Player(Animobj *p_animobj)
 	leftPressed = false;
 	upPressed = false;
 	downPressed = false;
+	movementPressed = false;
 
 	//temp values for testing
 	mass = 0.2f;
@@ -29,6 +30,7 @@ void Player::ExecuteCommand(const GameCommand command)
 	{
 	case MOVERIGHT:
 		rightPressed = true;
+		movementPressed = true;
 		lastCommand = command;
 		break;
 
@@ -39,6 +41,7 @@ void Player::ExecuteCommand(const GameCommand command)
 
 	case MOVELEFT:
 		leftPressed = true;
+		movementPressed = true;
 		lastCommand = command;
 		break;
 
@@ -49,6 +52,7 @@ void Player::ExecuteCommand(const GameCommand command)
 
 	case MOVEUP:
 		upPressed = true;
+		movementPressed = true;
 		lastCommand = command;
 		break;
 
@@ -59,6 +63,7 @@ void Player::ExecuteCommand(const GameCommand command)
 
 	case MOVEDOWN:
 		downPressed = true;
+		movementPressed = true;
 		lastCommand = command;
 		break;
 
@@ -70,19 +75,40 @@ void Player::ExecuteCommand(const GameCommand command)
 	default:
 		break;
 	}
+
+	if(!rightPressed && !leftPressed && !upPressed && !downPressed)
+		movementPressed = false;
+}
+
+void Player::Update(double dt)
+{
+	ProcessForces();
+	
+	prevState = currState;
+
+	cml::vector2f lastAcc = currState.acc;
+
+	currState.pos += currState.vel * dt + (0.5f * lastAcc * dt * dt);
+
+	cml::vector2f newAcc = motiveForce / mass;
+
+	cml::vector2f avgAcc = (lastAcc + newAcc) / 2;
+
+	currState.acc = newAcc;
+
+	currState.vel += avgAcc * dt;
+
+	currState.vel *= FRICTION;
+
+	if(currState.vel.length() > STATICTHRESH && !movementPressed)
+		currState.vel.zero();	//Hopefully eliminates the "jitters"
+
+	SelectAnim();
+	animObj->Update(dt);
 }
 
 void Player::ProcessForces()
 {
-	//debug
-	//if(motiveForce != lastForce)
-	//{
-	//	std::cout << "Xforce = " << motiveForce[0] << " Yforce = " << motiveForce[1] << std::endl;
-	//}
-
-	//lastForce = motiveForce;
-	//end debug
-
 	if(rightPressed)
 	{
 		motiveForce[0] = 1;
@@ -120,28 +146,10 @@ void Player::ProcessForces()
 	motiveForce *= DEFMOTIVEFORCE;
 }
 
-void Player::Update(double dt)
+void Player::SelectAnim()
 {
-	ProcessForces();
-
-	prevState = currState;
-
-	cml::vector2f lastAcc = currState.acc;
-
-	currState.pos += currState.vel * dt + (0.5f * lastAcc * dt * dt);
-
-	cml::vector2f newAcc = motiveForce / mass;
-
-	cml::vector2f avgAcc = (lastAcc + newAcc) / 2;
-
-	currState.acc = newAcc;
-
-	currState.vel += avgAcc * dt;
-
-	currState.vel *= FRICTION;
-
-	//if(currState.vel.length() > STATICTHRESH)
-	//	currState.vel.zero();	//Hopefully eliminates the "jitters"
-
-	animObj->Update(dt);
+	if(currState.vel.length() > 0)
+		animObj->Play(1, true, false);
+	else
+		animObj->Play(0, false, false);
 }

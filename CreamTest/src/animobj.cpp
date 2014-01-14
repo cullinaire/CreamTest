@@ -141,6 +141,7 @@ SDL_Rect Animation::Update(const double dt)
 				}
 				else
 				{
+					--currentFrameId;	//Go back to last frame
 					isPlaying = false;
 				}
 			}
@@ -161,7 +162,16 @@ Animobj::Animobj(const std::string defFile, Spritesheet *spritesheet)
 
 void Animobj::Play(const int idToPlay, const bool looping, const bool backNforth)
 {
-	anims.Play(idToPlay, looping, backNforth);
+	//Don't restart the current playing animation since this might be called repeatedly
+	if(lastPlayingId != idToPlay)
+		anims.Play(idToPlay, looping, backNforth);
+
+	lastPlayingId = idToPlay;
+}
+
+int Animobj::whichIdisPlaying()
+{
+	return lastPlayingId;
 }
 
 void Animobj::Stop()

@@ -27,7 +27,7 @@ struct AnimSequence
 	std::vector<Frame>	frames;		//Actual animation frames
 };
 
-//Defines animations
+//Defines animations - is not used directly. Is only to be used as part of Animobj
 class Animation
 {
 public:
@@ -48,12 +48,14 @@ private:
 	double elapsed;
 };
 
+//Encapsulates animations and associated spritesheets
 class Animobj
 {
 public:
 	Animobj() {}
 	Animobj(const std::string defFile, Spritesheet *spritesheet);
 	void Play(const int idToPlay, const bool looping, const bool backNforth);
+	int whichIdisPlaying();
 	void Stop();
 	void Update(const double dt);
 	void Draw(const float x, const float y);
@@ -63,6 +65,7 @@ public:
 private:
 	Spritesheet		*animSheet;
 	Animation		anims;
+	int				lastPlayingId;
 	SDL_Rect		src;
 	SDL_Rect		dst;
 };

@@ -9,17 +9,17 @@
 #Put each animation (and frame) on a separate line
 #Terminate each sequence with !
 
-#A three frame animation
+#Standing still
 
 [0]
-{ 0, 0, 5, 6, 100 }
-{ 7, 0, 5, 6, 100 }
-{ 14, 0, 5, 6, 100 }!
+{ 0, 0, 16, 16, 100 }!
 
-#A two frame animation
+#Walk cycle
 
 [1]
-{ 0, 0, 5, 6, 50 }
-{ 14, 0, 5, 6, 50 }!
+{ 0, 0, 16, 16, 100 }
+{ 16, 0, 16, 16, 100 }
+{ 32, 0, 16, 16, 100 }
+{ 48, 0, 16, 16, 100 }!
 
 #End of animations

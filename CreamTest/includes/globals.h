@@ -20,7 +20,7 @@
 #define DEFAULTSCANCODE	SDL_SCANCODE_NONUSHASH
 #define MAXVEL			20.0f
 #define FRICTION		0.95f
-#define STATICTHRESH	0.05f
+#define STATICTHRESH	0.01f
 #define DEFMOTIVEFORCE	150.0f
 /*********DEFINES**********/
 

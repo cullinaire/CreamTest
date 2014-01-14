@@ -15,8 +15,10 @@ public:
 	void Update(double dt);
 private:
 	void ProcessForces();
+	void SelectAnim();
 	GameCommand lastCommand;
 	bool rightPressed, leftPressed, upPressed, downPressed;
+	bool movementPressed;	//true if any of the movement keys is pressed
 
 	//debug
 	cml::vector2f lastForce;
