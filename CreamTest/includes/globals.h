@@ -21,7 +21,7 @@
 #define MAXVEL			20.0f
 #define FRICTION		0.95f
 #define STATICTHRESH	0.05f
-#define DEFMOTIVEFORCE	50.0f
+#define DEFMOTIVEFORCE	150.0f
 /*********DEFINES**********/
 
 #endif

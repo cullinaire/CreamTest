@@ -50,6 +50,7 @@ int main(int argc, char **argv)
 			{
 				lastInput = playerInput->getCommand(ev.key.keysym.scancode, false);
 			}
+			testEntity->ExecuteCommand(lastInput);
 		}
 		
 		frameTime = testTimer.Update();
@@ -60,7 +61,6 @@ int main(int argc, char **argv)
 			accumulator -= FIXEDTIMESTEP;
 
 			//Do fixed timestep stuff
-			testEntity->ExecuteCommand(lastInput);
 			testEntity->Update(FIXEDTIMESTEP);
 
 			t += FIXEDTIMESTEP;

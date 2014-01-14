@@ -6,6 +6,10 @@ Player::Player(Animobj *p_animobj)
 	collidable = true;
 	animObj = p_animobj;
 	lastCommand = UNDEFINED;
+	rightPressed = false;
+	leftPressed = false;
+	upPressed = false;
+	downPressed = false;
 
 	//temp values for testing
 	mass = 0.2f;
@@ -24,38 +28,120 @@ void Player::ExecuteCommand(const GameCommand command)
 	switch(command)
 	{
 	case MOVERIGHT:
-		motiveForce[0] = DEFMOTIVEFORCE;
+		rightPressed = true;
 		lastCommand = command;
 		break;
+
 	case STOPMOVERIGHT:
-		motiveForce[0] = 0;
+		rightPressed = false;
 		lastCommand = command;
 		break;
+
 	case MOVELEFT:
-		motiveForce[0] = -DEFMOTIVEFORCE;
+		leftPressed = true;
 		lastCommand = command;
 		break;
+
 	case STOPMOVELEFT:
-		motiveForce[0] = 0;
+		leftPressed = false;
 		lastCommand = command;
 		break;
+
 	case MOVEUP:
-		motiveForce[1] = -DEFMOTIVEFORCE;
+		upPressed = true;
 		lastCommand = command;
 		break;
+
 	case STOPMOVEUP:
-		motiveForce[1] = 0;
+		upPressed = false;
 		lastCommand = command;
 		break;
+
 	case MOVEDOWN:
-		motiveForce[1] = DEFMOTIVEFORCE;
+		downPressed = true;
 		lastCommand = command;
 		break;
+
 	case STOPMOVEDOWN:
-		motiveForce[1] = 0;
+		downPressed = false;
 		lastCommand = command;
 		break;
+
 	default:
 		break;
 	}
+}
+
+void Player::ProcessForces()
+{
+	//debug
+	//if(motiveForce != lastForce)
+	//{
+	//	std::cout << "Xforce = " << motiveForce[0] << " Yforce = " << motiveForce[1] << std::endl;
+	//}
+
+	//lastForce = motiveForce;
+	//end debug
+
+	if(rightPressed)
+	{
+		motiveForce[0] = 1;
+		if(leftPressed)
+			motiveForce[0] = 0;
+	}
+	else if(leftPressed)
+	{
+		motiveForce[0] = -1;
+		if(rightPressed)
+			motiveForce = 0;
+	}
+	else
+		motiveForce[0] = 0;
+
+	if(upPressed)
+	{
+		motiveForce[1] = -1;
+		if(downPressed)
+			motiveForce[1] = 0;
+	}
+	else if(downPressed)
+	{
+		motiveForce[1] = 1;
+		if(upPressed)
+			motiveForce[1] = 0;
+	}
+	else
+		motiveForce[1] = 0;
+
+	//Only normalize if nonzero vector
+	if(motiveForce[0] != 0 || motiveForce[1] != 0)
+		motiveForce.normalize();
+
+	motiveForce *= DEFMOTIVEFORCE;
+}
+
+void Player::Update(double dt)
+{
+	ProcessForces();
+
+	prevState = currState;
+
+	cml::vector2f lastAcc = currState.acc;
+
+	currState.pos += currState.vel * dt + (0.5f * lastAcc * dt * dt);
+
+	cml::vector2f newAcc = motiveForce / mass;
+
+	cml::vector2f avgAcc = (lastAcc + newAcc) / 2;
+
+	currState.acc = newAcc;
+
+	currState.vel += avgAcc * dt;
+
+	currState.vel *= FRICTION;
+
+	//if(currState.vel.length() > STATICTHRESH)
+	//	currState.vel.zero();	//Hopefully eliminates the "jitters"
+
+	animObj->Update(dt);
 }

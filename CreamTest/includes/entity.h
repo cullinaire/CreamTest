@@ -17,7 +17,7 @@ class Entity
 public:
 	Entity() {}
 	~Entity() {}
-	virtual void Update(double dt);
+	virtual void Update(double dt) {}
 	virtual void Draw(double alpha);
 protected:
 	EntityState currState;
