@@ -91,6 +91,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\animobj.cpp" />
+    <ClCompile Include="src\collision.cpp" />
     <ClCompile Include="src\entity.cpp" />
     <ClCompile Include="src\init.cpp" />
     <ClCompile Include="src\inputscheme.cpp" />
@@ -103,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\animobj.h" />
+    <ClInclude Include="includes\collision.h" />
     <ClInclude Include="includes\entity.h" />
     <ClInclude Include="includes\globals.h" />
     <ClInclude Include="includes\init.h" />

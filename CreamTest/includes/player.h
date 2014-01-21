@@ -5,6 +5,7 @@
 
 #include "entity.h"
 #include "inputscheme.h"
+#include "collision.h"
 
 class Player: public Entity
 {
@@ -12,7 +13,8 @@ public:
 	Player(Animobj *p_animobj);
 	~Player() {}
 	void ExecuteCommand(const GameCommand command);
-	void Update(double dt);
+	void Update(const double dt);
+	void UpdateAABB(AABB &aabb);
 private:
 	void ProcessForces();
 	void SelectAnim();

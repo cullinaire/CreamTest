@@ -14,11 +14,12 @@ Player::Player(Animobj *p_animobj)
 
 	//temp values for testing
 	mass = 0.2f;
-	motiveForce.zero();
 	currState.pos.set(64.0f, 64.0f);
+	//end testing values
+
 	currState.vel.zero();
 	currState.acc.zero();
-
+	motiveForce.zero();
 	prevState = currState;
 
 	animObj->Play(0, true, false);
@@ -80,7 +81,7 @@ void Player::ExecuteCommand(const GameCommand command)
 		movementPressed = false;
 }
 
-void Player::Update(double dt)
+void Player::Update(const double dt)
 {
 	ProcessForces();
 	
@@ -105,6 +106,14 @@ void Player::Update(double dt)
 
 	SelectAnim();
 	animObj->Update(dt);
+}
+
+void Player::UpdateAABB(AABB &aabb)
+{
+	aabb.A[0] = currState.pos[0];	//xmin
+	aabb.A[1] = currState.pos[1];	//ymin
+	aabb.B[0] = currState.pos[0]+16;	//xmax
+	aabb.B[1] = currState.pos[1]+16;	//ymax
 }
 
 void Player::ProcessForces()
