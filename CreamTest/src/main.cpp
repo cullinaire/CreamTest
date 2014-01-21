@@ -8,7 +8,6 @@
 #include "timekeep.h"
 #include "player.h"
 #include "inputscheme.h"
-#include "collision.h"
 
 int main(int argc, char **argv)
 {
@@ -33,21 +32,7 @@ int main(int argc, char **argv)
 	Spritesheet *testSheet = new Spritesheet("../assets/sample.bmp", rend);
 	Animobj *testAnim = new Animobj("../assets/sample.def", testSheet);
 	Player *testEntity = new Player(testAnim);
-	Player *anotherEnt = new Player(testAnim);
 	InputScheme *playerInput = new InputScheme();
-	Collision *collider = new Collision();
-
-	Box newBox;
-
-	testEntity->UpdateAABB(newBox.aabb);
-	newBox.owner = testEntity;
-
-	collider->AddBox(newBox);
-
-	anotherEnt->UpdateAABB(newBox.aabb);
-	newBox.owner = anotherEnt;
-
-	collider->AddBox(newBox);
 
 	GameCommand lastInput = UNDEFINED;
 
@@ -93,9 +78,7 @@ int main(int argc, char **argv)
 	delete testSheet;
 	delete testAnim;
 	delete testEntity;
-	delete anotherEnt;
 	delete playerInput;
-	delete collider;
 	/********TEST HARNESS********/
 
 	CreamCleanUp(window, rend);
