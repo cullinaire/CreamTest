@@ -35,19 +35,17 @@ int main(int argc, char **argv)
 	Player *testEntity = new Player(testAnim);
 	Player *anotherEnt = new Player(testAnim);
 	InputScheme *playerInput = new InputScheme();
-	Collision *collider = new Collision();
-
-	Box newBox;
-
-	testEntity->UpdateAABB(newBox.aabb);
-	newBox.owner = testEntity;
-
-	collider->AddBox(newBox);
-
-	anotherEnt->UpdateAABB(newBox.aabb);
-	newBox.owner = anotherEnt;
-
-	collider->AddBox(newBox);
+	std::vector<Box> boxes;
+	Collision *collider = new Collision(&boxes);
+	Box aBox;
+	aBox.id = 677;
+	collider->Add(aBox);
+	aBox.id = 92314;
+	collider->Add(aBox);
+	aBox.id = 134;
+	collider->Add(aBox);
+	aBox.id = 21;
+	std::cout << "Index of aBox is: " << collider->Add(aBox) << std::endl;
 
 	GameCommand lastInput = UNDEFINED;
 

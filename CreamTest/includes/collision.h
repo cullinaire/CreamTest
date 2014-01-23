@@ -7,6 +7,7 @@
 #include "entity.h"
 
 #include <vector>
+#include <algorithm>
 
 struct AABB
 {
@@ -17,20 +18,24 @@ struct AABB
 struct Box
 {
 	AABB aabb;
-	Entity *owner;
+	int id;
 };
+
+bool operator==(const Box &lhs, const Box &rhs);
 
 bool collide(const AABB boxA, const AABB boxB);
 
 class Collision
 {
 public:
-	Collision();
+	Collision(std::vector<Box> *boxVector);
 	~Collision() {}
-	void AddBox(const Box newBox);
-	void naiveCollide();
+	int Add(const Box newBox);
+	void Remove();
+	void Update();
 private:
-	std::vector<Box> boxes;
+	std::vector<Box> *boxes;	//pointer to external vector
+	int index;	//Array index in box vector
 };
 
 #endif

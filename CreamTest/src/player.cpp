@@ -13,7 +13,7 @@ Player::Player(Animobj *p_animobj)
 	movementPressed = false;
 
 	//temp values for testing
-	mass = 0.2f;
+	mass = 0.8f;
 	currState.pos.set(64.0f, 64.0f);
 	//end testing values
 
