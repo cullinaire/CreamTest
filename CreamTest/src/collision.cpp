@@ -22,31 +22,47 @@ Collision::Collision(std::vector<Box> *boxVector)
 	boxes = boxVector;
 }
 
-int Collision::Add(const Box newBox)
-{
-	boxes->push_back(newBox);
-	
+bool Collision::Add(const Box newBox)
+{	
 	std::vector<Box>::iterator itr;
-	auto it = std::find(boxes->begin(), boxes->end(), newBox);
-
-	if(it == boxes->end())
+	for(itr = boxes->begin();itr != boxes->end();++itr)
 	{
-		//Something's wrong - a box that was just inserted can't be found in the vector!!
-		std::cout << "Houston there's something wrong with adding box to boxes!"<< std::endl;
-	}
-	else
-	{
-		int index = 0;
-		for(itr = boxes->begin();itr != boxes->end();++itr)
+		if(itr->id == newBox.id)
 		{
-			if(itr == it)
-				return index;
-			else
-				++index;
+			std::cout << "Duplicate of box id " << newBox.id << " found. Not inserting!!" << std::endl;
+			return false;
 		}
 	}
+	boxes->push_back(newBox);
+	return true;
+}
 
-	return -80000;	//Should not ever get here
+void Collision::Remove(const int id)
+{
+	std::vector<Box>::iterator itr;
+	for(itr = boxes->begin();itr != boxes->end();++itr)
+	{
+		if(itr->id == id)
+		{
+			boxes->erase(itr);
+			return;
+		}
+	}
+	std::cout << "Could not find id " << id << " to delete!!" << std::endl;
+}
+
+void Collision::Update(const Box updateBox)
+{
+	std::vector<Box>::iterator itr;
+	for(itr = boxes->begin();itr != boxes->end();++itr)
+	{
+		if(itr->id == updateBox.id)
+		{
+			itr->aabb = updateBox.aabb;
+			return;
+		}
+	}
+	std::cout << "Could not find id " << updateBox.id << " to update!!" << std::endl;
 }
 
 //This is a naive collision detect for testing only

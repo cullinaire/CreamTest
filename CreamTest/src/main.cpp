@@ -44,8 +44,16 @@ int main(int argc, char **argv)
 	collider->Add(aBox);
 	aBox.id = 134;
 	collider->Add(aBox);
+	collider->Remove(92314);
+	collider->Remove(677);
 	aBox.id = 21;
 	std::cout << "Index of aBox is: " << collider->Add(aBox) << std::endl;
+	aBox.aabb.A[0] = 1239;
+	aBox.aabb.A[1] = 31245;
+	aBox.aabb.B[0] = 39248;
+	aBox.aabb.B[1] = 31431;
+	aBox.id = 134;
+	collider->Update(aBox);
 
 	GameCommand lastInput = UNDEFINED;
 

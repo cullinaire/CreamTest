@@ -30,9 +30,9 @@ class Collision
 public:
 	Collision(std::vector<Box> *boxVector);
 	~Collision() {}
-	int Add(const Box newBox);
-	void Remove();
-	void Update();
+	bool Add(const Box newBox);
+	void Remove(const int id);
+	void Update(const Box updateBox);
 private:
 	std::vector<Box> *boxes;	//pointer to external vector
 	int index;	//Array index in box vector
