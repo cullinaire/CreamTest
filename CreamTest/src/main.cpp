@@ -30,30 +30,12 @@ int main(int argc, char **argv)
 
 	testTimer.Init();
 
+	std::vector<Box> boxes;
 	Spritesheet *testSheet = new Spritesheet("../assets/sample.bmp", rend);
 	Animobj *testAnim = new Animobj("../assets/sample.def", testSheet);
-	Player *testEntity = new Player(testAnim);
-	Player *anotherEnt = new Player(testAnim);
+	Player *testEntity = new Player(testAnim, &boxes, 1);
+	Player *anotherEnt = new Player(testAnim, &boxes, 2);
 	InputScheme *playerInput = new InputScheme();
-	std::vector<Box> boxes;
-	Collision *collider = new Collision(&boxes);
-	Box aBox;
-	aBox.id = 677;
-	collider->Add(aBox);
-	aBox.id = 92314;
-	collider->Add(aBox);
-	aBox.id = 134;
-	collider->Add(aBox);
-	collider->Remove(92314);
-	collider->Remove(677);
-	aBox.id = 21;
-	std::cout << "Index of aBox is: " << collider->Add(aBox) << std::endl;
-	aBox.aabb.A[0] = 1239;
-	aBox.aabb.A[1] = 31245;
-	aBox.aabb.B[0] = 39248;
-	aBox.aabb.B[1] = 31431;
-	aBox.id = 134;
-	collider->Update(aBox);
 
 	GameCommand lastInput = UNDEFINED;
 
@@ -101,7 +83,6 @@ int main(int argc, char **argv)
 	delete testEntity;
 	delete anotherEnt;
 	delete playerInput;
-	delete collider;
 	/********TEST HARNESS********/
 
 	CreamCleanUp(window, rend);

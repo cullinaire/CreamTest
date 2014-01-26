@@ -10,17 +10,18 @@
 class Player: public Entity
 {
 public:
-	Player(Animobj *p_animobj);
+	Player(Animobj *p_animobj, std::vector<Box> *boxVector, const int playerId);
 	~Player() {}
 	void ExecuteCommand(const GameCommand command);
 	void Update(const double dt);
-	void UpdateAABB(AABB &aabb);
 private:
 	void ProcessForces();
 	void SelectAnim();
 	GameCommand lastCommand;
 	bool rightPressed, leftPressed, upPressed, downPressed;
 	bool movementPressed;	//true if any of the movement keys is pressed
+	Collision collider;
+	Box playerBox;
 
 	//debug
 	cml::vector2f lastForce;

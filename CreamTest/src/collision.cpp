@@ -17,7 +17,7 @@ bool collide(const AABB boxA, const AABB boxB)
 	return true;
 }
 
-Collision::Collision(std::vector<Box> *boxVector)
+void Collision::AssignDatabase(std::vector<Box> *boxVector)
 {
 	boxes = boxVector;
 }

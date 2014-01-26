@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(Animobj *p_animobj)
+Player::Player(Animobj *p_animobj, std::vector<Box> *boxVector, const int playerId)
 {
 	visible = true;
 	collidable = true;
@@ -16,6 +16,16 @@ Player::Player(Animobj *p_animobj)
 	mass = 0.8f;
 	currState.pos.set(64.0f, 64.0f);
 	//end testing values
+
+	//Collision stuff
+	collider.AssignDatabase(boxVector);
+	playerBox.aabb.A[0] = currState.pos[0];	//xmin
+	playerBox.aabb.A[1] = currState.pos[1];	//ymin
+	playerBox.aabb.B[0] = currState.pos[0]+16;	//xmax
+	playerBox.aabb.B[1] = currState.pos[1]+16;	//ymax
+	playerBox.id = playerId;
+	collider.Add(playerBox);
+	//End collision stuff
 
 	currState.vel.zero();
 	currState.acc.zero();
@@ -106,14 +116,12 @@ void Player::Update(const double dt)
 
 	SelectAnim();
 	animObj->Update(dt);
-}
 
-void Player::UpdateAABB(AABB &aabb)
-{
-	aabb.A[0] = currState.pos[0];	//xmin
-	aabb.A[1] = currState.pos[1];	//ymin
-	aabb.B[0] = currState.pos[0]+16;	//xmax
-	aabb.B[1] = currState.pos[1]+16;	//ymax
+	playerBox.aabb.A[0] = currState.pos[0];	//xmin
+	playerBox.aabb.A[1] = currState.pos[1];	//ymin
+	playerBox.aabb.B[0] = currState.pos[0]+16;	//xmax
+	playerBox.aabb.B[1] = currState.pos[1]+16;	//ymax
+	collider.Update(playerBox);
 }
 
 void Player::ProcessForces()
