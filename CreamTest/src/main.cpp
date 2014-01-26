@@ -32,9 +32,8 @@ int main(int argc, char **argv)
 
 	std::vector<Box> boxes;
 	Spritesheet *testSheet = new Spritesheet("../assets/sample.bmp", rend);
-	Animobj *testAnim = new Animobj("../assets/sample.def", testSheet);
-	Player *testEntity = new Player(testAnim, &boxes, 1);
-	Player *anotherEnt = new Player(testAnim, &boxes, 2);
+	Player *testEntity = new Player(testSheet, "../assets/sample.def", &boxes, 1);
+	Player *anotherEnt = new Player(testSheet, "../assets/sample.def", &boxes, 2);
 	InputScheme *playerInput = new InputScheme();
 
 	GameCommand lastInput = UNDEFINED;
@@ -65,6 +64,7 @@ int main(int argc, char **argv)
 
 			//Do fixed timestep stuff
 			testEntity->Update(FIXEDTIMESTEP);
+			anotherEnt->Update(FIXEDTIMESTEP);
 
 			t += FIXEDTIMESTEP;
 		}
@@ -74,12 +74,12 @@ int main(int argc, char **argv)
 		SDL_RenderClear(rend);
 		//Draw something now
 		testEntity->Draw(alpha);
+		anotherEnt->Draw(alpha);
 		
 		SDL_RenderPresent(rend);
 	}
 
 	delete testSheet;
-	delete testAnim;
 	delete testEntity;
 	delete anotherEnt;
 	delete playerInput;

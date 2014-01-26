@@ -6,12 +6,13 @@
 #include "entity.h"
 #include "inputscheme.h"
 #include "collision.h"
+#include "spritesheet.h"
 
 class Player: public Entity
 {
 public:
-	Player(Animobj *p_animobj, std::vector<Box> *boxVector, const int playerId);
-	~Player() {}
+	Player(Spritesheet *spritesheet, const std::string anideffile, std::vector<Box> *boxVector, const int playerId);
+	~Player();
 	void ExecuteCommand(const GameCommand command);
 	void Update(const double dt);
 private:

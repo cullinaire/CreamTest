@@ -1,10 +1,10 @@
 #include "player.h"
 
-Player::Player(Animobj *p_animobj, std::vector<Box> *boxVector, const int playerId)
+Player::Player(Spritesheet *spritesheet, const std::string anideffile, std::vector<Box> *boxVector, const int playerId)
 {
 	visible = true;
 	collidable = true;
-	animObj = p_animobj;
+	animObj = new Animobj(anideffile, spritesheet);
 	lastCommand = UNDEFINED;
 	rightPressed = false;
 	leftPressed = false;
@@ -33,6 +33,11 @@ Player::Player(Animobj *p_animobj, std::vector<Box> *boxVector, const int player
 	prevState = currState;
 
 	animObj->Play(0, true, false);
+}
+
+Player::~Player()
+{
+	delete animObj;
 }
 
 void Player::ExecuteCommand(const GameCommand command)
