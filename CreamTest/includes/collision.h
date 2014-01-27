@@ -21,6 +21,12 @@ struct Box
 	int id;
 };
 
+struct Endpoint
+{
+	int ownerId;
+	bool trueIfmax;	//falseIfmin
+};
+
 bool operator==(const Box &lhs, const Box &rhs);
 
 bool collide(const AABB boxA, const AABB boxB);
@@ -36,6 +42,7 @@ public:
 	void Update(const Box updateBox);
 private:
 	std::vector<Box> *boxes;	//pointer to external vector
+	std::vector<Endpoint> *endpoints;	//pointer to external vector
 };
 
 #endif
